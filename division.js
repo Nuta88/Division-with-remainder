@@ -1,35 +1,38 @@
-function getResultDivisionWithRemainder(dividend, divider) {
+function divide(dividend, divider) {
 	var strDividend = String(dividend);
 	var strQuotient = "";
 	var strRemainder = "";
-	var newDividend = 0;
+	var dividendPart = 0;
+
 	for (var i = 0; i < strDividend.length; i++) {
+
 		if (divider === 0) {
-			return "[ERROR]: division on zero";
+			return "[ERROR]: division by zero";
 		}
-		if (strDividend.length < String(divider).length) {
-			return "0[" + String(dividend) + "]";
-		}
-		newDividend = Number(strRemainder + Number(strDividend[i]));
-		var privet = Math.floor((newDividend / divider));
-		strQuotient += String(privet);
-		strRemainder = String(newDividend - (privet * divider));
-		if (strDividend.length >= String(divider).length && strQuotient === "0") {
-			strQuotient = "";
-		}
+
+		dividendPart = Number(strRemainder + strDividend[i]);
+		var quotientPart = Math.floor((dividendPart / divider));
+		strQuotient += quotientPart === 0 ? "" : String(quotientPart);
+		strRemainder = String(dividendPart - (quotientPart * divider));
 	}
+
+	if (strQuotient.length === 0) {
+		strQuotient = 0;
+	}
+
 	return strQuotient + "[" + strRemainder + "]";
 }
 
 function testingdivisonWithRemainder() {
-	var inputDivider = 0;
 	var inputDividend = 15;
-	var expected = "0[25]";
-	var actual = getResultDivisionWithRemainder(inputDividend, inputDivider);
+	var inputDivider = 33;
+	var expected = "0[15]";
+	var actual = divide(inputDividend, inputDivider);
+	
 	if (actual === expected) {
-		document.write("function is working good" + " " + actual);
+		document.write("SUCCESSFUL " + actual);
 	} else {
-		document.write("function is working bad" + " " + actual);
+		document.write("FAULT " + actual);
 	}
 }
 
